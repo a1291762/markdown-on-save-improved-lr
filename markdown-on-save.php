@@ -1,10 +1,10 @@
 <?php
 /*
-Plugin Name: Markdown on Save Improved
-Description: Deprecated. Please use the Markdown module in the Jetpack plugin!
-Version: 2.5
-Author: Matt Wiebe
-Author URI: http://somadesign.ca/
+Plugin Name: Markdown on Save Improved (LR)
+Description: Updated for PHP 7!
+Version: 2.6
+Author: Lincoln Ramsay
+Author URI: https://github.com/a1291762/markdown-on-save-improved-lr
 License: GPL v2
 */
 
@@ -162,9 +162,9 @@ class SD_Markdown {
 	// we have to do it early and ghetto like this since metaWeblog.getPost && wp.getPage
 	// fire *after* get_post is called in their methods
 	public function maybe_prime_post_data() {
-		global $HTTP_RAW_POST_DATA;
+		$postdata = file_get_contents("php://input");
 		require_once( ABSPATH . WPINC . '/class-IXR.php' );
-		$message = new IXR_Message( $HTTP_RAW_POST_DATA );
+		$message = new IXR_Message( $postdata );
 		if ( ! $message->parse() ) {
 			unset( $message );
 			return;
